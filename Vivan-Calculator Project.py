@@ -80,10 +80,17 @@ def evaluate():
     expression.set(str(eval(expression.get().strip())))
 
 # Create your frames and label here
+mainframe = Frame(root, bg='light grey', padx=10, pady=15)
+mainframe.grid(row, column, rowspan=4, columnspan=4)
 
+display_box = Label(mainframe, bg='white', fg='black', textvariable=expression, justify='right', relief='sunken', width=mainframe.winfo_width())
+display_box.grid(row=0, column=0, columnspan=5, sticky='news')
 
+special_BFrame = Frame(mainframe, bg='orange', relief='flat', padx=5, pady=5)
+special_BFrame.grid(row=1, column=0, columnspan=4, sticky='ew')
 
-
+numpad_frame = Frame(mainframe, bg='light grey', padx=5, pady=5, relief='flat')
+numpad_frame.grid(row=2, column=0, rowspan=4, columnspan=4, sticky='news')
 
 
 
