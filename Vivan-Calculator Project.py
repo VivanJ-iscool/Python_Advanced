@@ -31,6 +31,7 @@ CODING
 from tkinter import *
 root = Tk()
 expression = StringVar()
+root.geometry("200x500")
 display= Label(root, textvariable=expression)
 
 class CalcButton():
@@ -42,8 +43,8 @@ class CalcButton():
         if command == None:
             self.onClick()
 
-        self.obj = Button()  # create your Button and store it as the 'obj' instance variable
-
+        self.obj = Button(frame, text=char, command=command, bg=bgcol, fg=fgcol, relief='raised')  # create your Button and store it as the 'obj' instance variable
+        self.obj.grid(row=row, column=col, sticky='news')
         # are there any other pieces of information a button should store?
 
     def onClick(self):
@@ -68,16 +69,12 @@ def delete():
 
 
 def evaluate():
-    """
-    Calls the built-in function 'eval' which will evaluate a string according to Pythons evauation rules.
-    Replaces the existing expression with the result of evaluating the expression.
-    strip() removes any trailing whitespace (spaces or newline characters) since eval does not like them.
-    Examples:
-    eval('3+4') -> '7'
-    eval('3 - 3 + 3 + 56') -> '59'              # spaces between numbers are optional
-    eval('-2 * 6') -> '-12'                     # do not use 'x' for multiplication, must be '*'
-    """
-    expression.set(str(eval(expression.get().strip())))
+        # Evaluate the expression using the 'eval' function and update the result
+        result = str(eval(expression.get()))
+        expression.set(result)
+    except Exception:
+        # Handle any evaluation errors by displaying "Error"
+        expression.set('Error')
 
 # Create your frames and label here
 mainframe = Frame(root, bg='light grey', padx=10, pady=15)
@@ -100,19 +97,44 @@ numpad_frame.grid(row=2, column=0, rowspan=4, columnspan=4, sticky='news')
 
 
 # Create your buttons here
-CalcButton("1","black","orange",0,0)
-CalcButton("2","black","orange",1,0)
-CalcButton("3","black","orange",2,0)
-CalcButton("4","black","orange",0,1)
-CalcButton("5","black","orange",1,1)
-CalcButton("6","black","orange",2,1)
-CalcButton("7","black","orange",0,2)
-CalcButton("8","black","orange",1,2)
-CalcButton("9","black","orange",2,2)
-CalcButton("0","black","orange",1,3)
-CalcButton("+", "orange", "black", )
+CalcButton("1","black","orange",0,0, numpad_frame)
+CalcButton("2","black","orange",1,0, numpad_frame)
+CalcButton("3","black","orange",2,0, numpad_frame)
+CalcButton("4","black","orange",0,1, numpad_frame)
+CalcButton("5","black","orange",1,1, numpad_frame)
+CalcButton("6","black","orange",2,1, numpad_frame)
+CalcButton("7","black","orange",0,2, numpad_frame)
+CalcButton("8","black","orange",1,2, numpad_frame)
+CalcButton("9","black","orange",2,2, numpad_frame)
+CalcButton("0","black","orange",1,3, numpad_frame)
+
+CalcButton(numpad_frame, '.', 'orange', 'black', 3, 1)
+CalcButton(numpad_frame, '=', 'orange', 'black', 3, 2, command=evaluate)
+CalcButton(numpad_frame, '/', 'orange', 'black', 0, 3)
+CalcButton(numpad_frame, '*', 'orange', 'black', 1, 3)
+CalcButton(numpad_frame, '-', 'orange', 'black', 2, 3)
+CalcButton(numpad_frame, '+', 'orange', 'black', 3, 3)
+
+CalcButton(special_BFrame, 'OFF', 'dark grey', 'black', 0, 0, command=root.quit)
+CalcButton(special_BFrame, 'CLR', 'dark grey', 'black', 0, 1, command=clear)
+CalcButton(special_BFrame, 'DEL', 'dark grey', 'black', 0, 2, command=delete)
 
 # Configure your rows and columns here as needed - remember to configure the root as well as your frames!
+root.rowconfigure(0, weight=1)
+root.columnconfigure(0, weight=1)
+root.rowconfigure(1, weight=1)
+root.columnconfigure(1, weight=1)
 
+for i in range(3):
+    mainframe.rowconfigure(i, weight=1)
+    mainframe.columnconfigure(i, weight=1)
+
+special_BFrame.rowconfigure(0, weight=0)
+for i in range(3):
+    special_BFrame.columnconfigure(i, weight=1)
+
+for i in range(4):
+    numpad_frame.rowconfigure(i, weight=1)
+    numpad_frame.columnconfigure(i, weight=1)
 
 root.mainloop()
