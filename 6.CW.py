@@ -23,3 +23,13 @@ scroller.config(command= listbox.yview)
 # Screen Placement Using Pack
 scroller.pack(side = RIGHT, fill = Y)#comes at the right side of the screen, top to bottom
 listbox.pack(side = BOTTOM)
+
+
+
+
+
+
+
+
+
+root.mainloop()
