@@ -1,7 +1,6 @@
 from tkinter import *
 root=Tk()
 f1=Frame(root, height='600', width='600', bg='beige')
-f1.pack()
 
 root.title('The best user Interface!')
 root.geometry('100x100')
@@ -14,4 +13,7 @@ name.pack()
 get_name.pack()
 
 
-var = Int
+var = IntVar()
+scalebar = Scale(root, variable = var, bg = 'red', tickinterval=3,
+resolution = 1, orient = HORIZONTAL, from_ = 1, to = 12)
+scalebar.grid(row = 2, sticky = 'new')
