@@ -1,0 +1,40 @@
+from tkinter import *
+import random as r
+root=Tk()
+c=Canvas(root, height=600,width=600, bg='light blue')
+a=StringVar
+
+
+menubar = Menu(root)
+menu_file = Menu(menubar) 
+menu_edit = Menu(menubar)
+menubar.add_cascade(menu=menu_file, label='File')
+menubar.add_cascade(menu=menu_edit, label='Edit')
+menu_file.add_command(label='Nothing')
+menu_file.add_command(label='Open...')
+menu_file.add_command(label='Something')
+root.config(menu = menubar) 
+
+class Math_Game:
+    def __init__(self, root):
+        self.root=root
+        root.title("New Math Game!")
+        self.correct_answers=0
+        self.questions=8
+        self.current_question=0
+    def generate_questions(self):
+        num1=r.randrange(1500)
+        num2=r.randrange(1500)
+        operations=['+','-','*','/']
+    def create_widget(self):
+        self.quesiton_label=Label(root,text='', bg='black', fg='orange')
+
+
+
+
+
+
+
+
+
+root.mainloop()
